@@ -21,9 +21,15 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.MapGet("/viveTlayacapan", (context) =>
+app.MapGet("/viveTlayacapanDev", (context) =>
 {
 	context.Response.Redirect("https://vivetlayacapan.azurewebsites.net/");
+	return Task.CompletedTask;
+});
+
+app.MapGet("/viveTlayacapan", (context) =>
+{
+	context.Response.Redirect("https://vivetlayacapan.com/");
 	return Task.CompletedTask;
 });
 
