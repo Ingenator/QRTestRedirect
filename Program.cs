@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.Headers;
+//using MixPanelHttpClient;
 using System.Net;
 using System.Runtime.CompilerServices;
 
@@ -20,15 +21,28 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var client = new Mixpanel.MixpanelClient("8255ab531142f1adb3521c57407c4ae5");
 
 app.MapGet("/viveTlayacapanDev", (context) =>
 {
-	context.Response.Redirect("https://vivetlayacapan.azurewebsites.net/");
+	client.TrackAsync("QR_DEV", new
+	{		
+		prop = "prueba",
+	});
+	context.Response.Redirect("https://vivetlayacapan.azurewebsites.net/");	
 	return Task.CompletedTask;
 });
 
 app.MapGet("/viveTlayacapan", (context) =>
 {
+	client.TrackAsync("QR_Lona", null);
+	context.Response.Redirect("https://vivetlayacapan.com/");
+	return Task.CompletedTask;
+});
+
+app.MapGet("/etapauno", (context) =>
+{
+	client.TrackAsync("QR_Flyer", null);
 	context.Response.Redirect("https://vivetlayacapan.com/");
 	return Task.CompletedTask;
 });
